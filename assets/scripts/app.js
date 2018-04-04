@@ -33,7 +33,7 @@ function sanitizeCase(input){
 	let sanitizedCase = input.toLowerCase();
 	return sanitizedCase;
 }
-//4 (come back to later, need to validate for just "even or odd")
+//4 
 function validateInput(input) {
 	let acceptedStrings = ["odd","even","e","o"];
 	if (!isNaN(input)){
@@ -115,3 +115,10 @@ function runDiceGame(){
 
 }
 runDiceGame();
+
+/* 
+
+Point, Round Based Game.
+Of of (x) amount of point and have round be out of (y), if player excedes (z) number of rounds they lose
+
+*/
