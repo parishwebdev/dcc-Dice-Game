@@ -35,15 +35,31 @@ function validateForString(input) {
 }
 //displayResult(getUserInput("Enter even or odd: ", validateForString)); 
 
+// (1)
 function roleDice(){
 	let numberOfDice = 6;
-	let diceSet = []
+	let diceSet = [4,6,8,10,12,20]; 
+	//if numberOfDice inc or dec make sure to put how many sides in the diceSet.
+	let diceSetValues = []
 
-	for(let i = 0; i < 6; i++){
-		let diceResult = Math.floor(Math.random() * 6) + 1;
-		diceSet.push(diceResult);
+	for(let i = 0; i < numberOfDice; i++){
+		let diceResult = Math.floor(Math.random() * diceSet[i]) + 1;
+
+		diceSetValues.push(diceResult);
 	}
 
-	return diceSet;
+	return diceSetValues;
 }
-displayResult(roleDice());
+//displayResult(roleDice());
+
+// (2)
+function findDiceSetSum(diceArray){
+	console.log("Dice Values: " + diceArray);
+	let sum = 0;
+	for(let i = 0; i < diceArray.length; i++){
+		sum += diceArray[i];
+	}
+	return sum;
+}
+console.log("4,6,8,10,12,20")
+displayResult(findDiceSetSum(roleDice()));
