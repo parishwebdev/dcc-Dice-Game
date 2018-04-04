@@ -91,6 +91,7 @@ function evaluateSumEvenOdd(diceSum){
 }
 //displayResult(evaluateSumEvenOdd(findDiceSetSum(roleDice())));
 
+//evaluatePointorNot()
 function evaluateWinOrLose(userInput, anwsers){
 
 	if(anwsers.includes(userInput)){
@@ -102,23 +103,76 @@ function evaluateWinOrLose(userInput, anwsers){
 
 }
 
+// runTurn()
 function runDiceGame(){
 	let input = getUserInput("Enter even or odd: ", validateInput, sanitizeCase);
 	let answers = evaluateSumEvenOdd(findDiceSetSum(roleDice()));
 
 	if (evaluateWinOrLose(input,answers) === true){
 		alert("You Win!");
+		// pointTotal += 1;
 	}
 	else{
 		alert("You Lose!")
+		// pointTotal += 0;
 	}
+	//turnCounter++;
 
 }
 runDiceGame();
 
+
+/*
+
+function newRound(turnCounter){
+	if (turnCounter % 10 === 0){
+		roundCounter++;
+	}
+}
+
+fucntion evaluateRound(roundCounter){
+	if (roundCounter > 6){
+		return false; //lose game
+	}
+	else{
+		return true;
+	}
+}
+function evaluatePointTotal(pointTotal){
+	if (pointTotal === 50){
+	  return true;
+	}else{
+	   return false;
+	}
+}
+
+*/
+
+
 /* 
 
 Point, Round Based Game.
-Of of (x) amount of point and have round be out of (y), if player excedes (z) number of rounds they lose
+Of (x) amount of point and have round be out of (y) turns, if player excedes (z) number of rounds they lose
+
+(come up with step like before to split up tasks)
+
+{
+	z = Max Rounds = 6 (maybe 7)
+    y = Turns Per Round 10
+	x = Points to Reach: 50
+}
+{
+	Keep track of:
+		- turn number,
+		- round number,
+		- point total
+}
+//order these later
+ - When player guesses right add a point to point counter else go to next turn
+ - Annouce round # and current total
+ - when turns passes the 10th turn of a round reset turn counter
+ - check current point value vs x
+ - check if current round excedes z
+ - loop unil win/lose condition is triggered and output game result
 
 */
