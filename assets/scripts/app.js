@@ -73,7 +73,7 @@ function findDiceSetSum(diceArray){
 	for(let i = 0; i < diceArray.length; i++){
 		sum += diceArray[i];
 	}
-	console.log(sum);
+	//console.log(sum);
 	return sum;
 }
 //console.log("4,6,8,10,12,20")
@@ -91,32 +91,67 @@ function evaluateSumEvenOdd(diceSum){
 }
 //displayResult(evaluateSumEvenOdd(findDiceSetSum(roleDice())));
 
-//evaluatePointorNot()
 function evaluateWinOrLose(userInput, anwsers){
-
 	if(anwsers.includes(userInput)){
 		return true;
 	}
 	else{
 		return false;
 	}
-
 }
-
-// runTurn()
-function runDiceGame(){
-	let input = getUserInput("Enter even or odd: ", validateInput, sanitizeCase);
-	let answers = evaluateSumEvenOdd(findDiceSetSum(roleDice()));
-
-	if (evaluateWinOrLose(input,answers) === true){
-		alert("You Win!");
-		// pointTotal += 1;
+function evaluateRightWrongMessage(input,answers){
+	let output;
+	if (evaluateWinOrLose(input,answers)){
+		output = "You guessed right!";
 	}
 	else{
-		alert("You Lose!")
-		// pointTotal += 0;
+		output = "You guessed wrong!";
 	}
-	//turnCounter++;
+	return output;
+}
+function runBet(cashTotal,input, answers){
+	let output;
+	if (evaluateWinOrLose(input,answers)){
+		 cashTotal += 0;
+	}
+	else{
+		cashTotal -= 100;
+	}
+	return cashTotal;
+}
+
+function getStartCashTotal(){
+	let startCash = 500;
+	return startCash;
+}
+function getTurnLimit(){
+	let turnlimit = 5;
+	return turnlimit;
+}
+function evaluateLastTurn(turnCounter,turnLimit){
+	if (turnCounter === turnLimit){
+		return true;
+	} else {
+		return false;
+	}
+}
+function runDiceGame(){
+	let total = getStartCashTotal();
+	let turnLimit = getTurnLimit();
+
+	for(let i = 0; i <= turnLimit; i++){
+		if(evaluateLastTurn(i,turnLimit)){
+			//end of game
+			displayResult("You won $" + total);
+		}else{
+			let input = getUserInput("Bet even or odd: ", validateInput, sanitizeCase);
+			let answers = evaluateSumEvenOdd(findDiceSetSum(roleDice()));
+			total = runBet(total,input,answers);
+			displayResult(evaluateRightWrongMessage(input,answers));
+			displayResult("Current total: $" + total);
+		}
+		
+	}
 
 }
 runDiceGame();
@@ -124,55 +159,10 @@ runDiceGame();
 
 /*
 
-function newRound(turnCounter){
-	if (turnCounter % 10 === 0){
-		roundCounter++;
-	}
-}
+Player Starts Out with $500 and if they win a bet (turn) then they get to keep their current
+dollar amount. If they loose the bet, then $100 would be subtracted from their current totals.
 
-fucntion evaluateRound(roundCounter){
-	if (roundCounter > 6){
-		return false; //lose game
-	}
-	else{
-		return true;
-	}
-}
-function evaluatePointTotal(pointTotal){
-	if (pointTotal === 50){
-	  return true;
-	}else{
-	   return false;
-	}
-}
+After 5 turns (bets) if they have money they get to keep the result.
 
 */
 
-
-/* 
-
-Point, Round Based Game.
-Of (x) amount of point and have round be out of (y) turns, if player excedes (z) number of rounds they lose
-
-(come up with step like before to split up tasks)
-
-{
-	z = Max Rounds = 6 (maybe 7)
-    y = Turns Per Round 10
-	x = Points to Reach: 50
-}
-{
-	Keep track of:
-		- turn number,
-		- round number,
-		- point total
-}
-//order these later
- - When player guesses right add a point to point counter else go to next turn
- - Annouce round # and current total
- - when turns passes the 10th turn of a round reset turn counter
- - check current point value vs x
- - check if current round excedes z
- - loop unil win/lose condition is triggered and output game result
-
-*/

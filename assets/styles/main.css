@@ -1,0 +1,12 @@
+body{
+	background-color: #D84242;
+}
+#mainContainer {
+	padding-top: 2.5px;
+	padding-bottom: 5px;
+	padding-right: 15px;
+	padding-left: 15px;
+
+	margin-top: 1.5rem;
+	margin-bottom: 1.5rem;
+}
