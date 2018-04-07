@@ -15,41 +15,38 @@ Players bet on whether the sum on the dice is odd or even.
 //(6) Check their response vs the sum of six dices is eaual or not
 //(7) Output response
 
-/* ~~~ GITHUB ~~~ */
 function displayResult (param){
 	console.log(param);
 }
-//3
 function getUserInput(message, validator, sanitizer){
  let input = prompt(message);
- input = sanitizer(input);
  if (validator(input)){
+   input = sanitizer(input);
    return input;
   }
   return getUserInput(message,validator,sanitizer);
 }
-//(4.5)
 function sanitizeCase(input){
 	let sanitizedCase = input.toLowerCase();
 	return sanitizedCase;
 }
-//4 
 function validateInput(input) {
 	let acceptedStrings = ["odd","even","e","o"];
+	if (input === null || input === "") {
+    	alert("Please enter something in:  ");
+		return false;
+ 	}
 	if (!isNaN(input)){
 		alert("Dont enter an number");
 		return false;
 	}
-	else if(acceptedStrings.includes(input) == false){
+	if(acceptedStrings.includes(input) == false){
 		alert("Please enter: odd,even,e or o ");
 		return false;
 	}
 
 	return true;
 }
-//displayResult(getUserInput("Enter even or odd: ", validateInput, sanitizeCase)); 
-
-// (1)
 function roleDice(){
 	let numberOfDice = 6;
 	let diceSet = [4,6,8,10,12,20]; 
@@ -64,21 +61,13 @@ function roleDice(){
 
 	return diceSetValues;
 }
-//displayResult(roleDice());
-
-// (2)
 function findDiceSetSum(diceArray){
-	//console.log("Dice Values: " + diceArray);
 	let sum = 0;
 	for(let i = 0; i < diceArray.length; i++){
 		sum += diceArray[i];
 	}
-	//console.log(sum);
 	return sum;
 }
-//console.log("4,6,8,10,12,20")
-//displayResult(findDiceSetSum(roleDice()));
-
 function evaluateSumEvenOdd(diceSum){
   let output;
 	if(diceSum % 2 == 0) {
@@ -89,8 +78,6 @@ function evaluateSumEvenOdd(diceSum){
 	}
 	return output;
 }
-//displayResult(evaluateSumEvenOdd(findDiceSetSum(roleDice())));
-
 function evaluateWinOrLose(userInput, anwsers){
 	if(anwsers.includes(userInput)){
 		return true;
@@ -119,7 +106,16 @@ function runBet(cashTotal,input, answers){
 	}
 	return cashTotal;
 }
-
+function runDoubleBet(cashTotal,input, answers){
+	let output;
+	if (evaluateWinOrLose(input,answers)){
+		 cashTotal *= 2;
+	}
+	else{
+		cashTotal = 0;
+	}
+	return cashTotal;
+}
 function getStartCashTotal(){
 	let startCash = 500;
 	return startCash;
@@ -135,26 +131,97 @@ function evaluateLastTurn(turnCounter,turnLimit){
 		return false;
 	}
 }
+function evaluateLost(cashTotal){
+	if (cashTotal != 0){
+		return true;
+	}else{
+		return false;
+	}
+}
+function evaluateLostMessage(cashTotal){
+	let output;
+	if (evaluateLost(cashTotal) === false){
+		output = "You Lost! $" + cashTotal + " for you \nClick Start Game Button to Play Again";
+	}
+	return output;
+}
+function evaluateDoubleOrNothing(modalInput){
+	if (modalInput === "yes" || modalInput === "y" ){
+		return true;
+	}
+	if (modalInput === "no" || modalInput === "n" ){
+		return false;
+	}
+	else{
+		return false;
+	}
+}
+
+function validateDoubleInput(input){
+	let acceptedStrings = ["yes","y","no","n"];
+
+	if(acceptedStrings.includes(input) === false){
+		alert("Please enter one of these (yes,y,no,n) in:  ");
+		return false;
+	}
+	if (!isNaN(input)){
+		alert("Dont enter an number");
+		return false;
+	}
+	if (input === null || input === "") {
+    	alert("Please enter something in:  ");
+		return false;
+ 	}
+	else{
+		return true;
+	}
+} 
+
 function runDiceGame(){
 	let total = getStartCashTotal();
 	let turnLimit = getTurnLimit();
 
 	for(let i = 0; i <= turnLimit; i++){
-		if(evaluateLastTurn(i,turnLimit)){
-			//end of game
-			displayResult("You won $" + total);
-		}else{
-			let input = getUserInput("Bet even or odd: ", validateInput, sanitizeCase);
-			let answers = evaluateSumEvenOdd(findDiceSetSum(roleDice()));
-			total = runBet(total,input,answers);
-			displayResult(evaluateRightWrongMessage(input,answers));
-			displayResult("Current total: $" + total);
+		if(evaluateLost(total)) {
+			if(evaluateLastTurn(i,turnLimit)){
+
+			let doubleOutput = getUserInput("Want to bet double or nothing: (yes or no)",validateDoubleInput, sanitizeCase);
+
+				if(evaluateDoubleOrNothing(doubleOutput)){
+
+					let input = getUserInput("(Double) Bet even or odd: ", validateInput, sanitizeCase);
+					let answers = evaluateSumEvenOdd(findDiceSetSum(roleDice()));
+					total = runDoubleBet(total,input,answers);
+					if(evaluateLost(total)) {
+						displayResult(evaluateRightWrongMessage(input,answers));
+						displayResult("You won $" + total);
+					}
+					else{
+						displayResult(evaluateLostMessage(total));
+					}
+					
+				}
+				else{
+					displayResult("You won $" + total);
+				}
+
+			}else{
+				let input = getUserInput("Bet even or odd: ", validateInput, sanitizeCase);
+				let answers = evaluateSumEvenOdd(findDiceSetSum(roleDice()));
+				total = runBet(total,input,answers);
+				displayResult(evaluateRightWrongMessage(input,answers));
+				displayResult("Current total: $" + total);
+			}
+
+		} else{
+			displayResult(evaluateLostMessage(total));
 		}
+
 		
 	}
 
 }
-runDiceGame();
+
 
 
 /*

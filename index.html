@@ -5,31 +5,45 @@
         <title>Parish Dice Game</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
-		<!-- Styles -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="assets/styles/main.css">
     </head>
     <body>
 
-    <div id="mainContainer" class="container white">
-        <div class="center-align">
+    <div id="mainContainer" class="container bg-white">
+        <div class="text-center">
             <h1>CHŌ-HAN (AKA CHŌ-HAN BAKUCHI)</h1>
-            <div class="left-align">
+            <div class="text-left">
                 <p>Very simple Japanese dice game. Six dice are rolled and the results kept secret. Players bet on whether the sum on the dice is odd or even. But with a twist! ...</p>
-                <p>Player Starts Out with $500 and if they win a bet (turn) then they get to keep their current dollar amount. If they loose the bet, then $100 would be subtracted from their current totals. <br>After 5 turns (bets) if they have money they get to keep the result.</p>
+                <p>The player starts out with $500 and if they win a bet (turn) then they get to keep their current dollar amount. If they loose the bet, then $100 would be subtracted from their current totals. <br>After 5 turns (bets) if they have money they get to keep the result.</p>
             </div>
         </div>
+
+
+
+        <div class="container">
+            <button id="startButton" onClick="runDiceGame()" class="btn btn-outline-danger">Start Game</button>
+
+            <a tabindex="0" class="btn btn-lg btn-MyRed nice-right round-btn" role="button" data-toggle="popover" data-placement="left" data-trigger="focus" title="Helpfull Information" data-content="This is a Javascript console application. Press F12 and Click on Console. (best in chrome)">
+                <i class="fas fa-info"></i>
+            </a>
+        </div>
+
+
     </div>
 
 
+        
 
       <!-- Scripts -->
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <!-- my js -->
         <script src="assets/scripts/app.js" ></script>
+        <script src="assets/scripts/My-jQuery.js" ></script>
 
     </body>
 </html>
