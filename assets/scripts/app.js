@@ -5,6 +5,14 @@ Very simple Japanese dice game.
 Six dice are rolled and the results kept secret.
 Players bet on whether the sum on the dice is odd or even.
 */
+/*
+
+Player Starts Out with $500 and if they win a bet (turn) then they get to keep their current
+dollar amount. If they loose the bet, then $100 would be subtracted from their current totals.
+
+After 5 turns (bets) if they have money they get to keep the result.
+
+*/
 
 //(1) Roll six seperate dice
 //(2) Add all the numbers together to get sum of the dices
@@ -40,7 +48,7 @@ function validateInput(input) {
 		alert("Dont enter an number");
 		return false;
 	}
-	if(acceptedStrings.includes(input) == false){
+	if(acceptedStrings.includes(input) === false){
 		alert("Please enter: odd,even,e or o ");
 		return false;
 	}
@@ -70,7 +78,7 @@ function findDiceSetSum(diceArray){
 }
 function evaluateSumEvenOdd(diceSum){
   let output;
-	if(diceSum % 2 == 0) {
+	if(diceSum % 2 === 0) {
 		output = ["even","e"];
 	}
 	else{
@@ -132,7 +140,7 @@ function evaluateLastTurn(turnCounter,turnLimit){
 	}
 }
 function evaluateLost(cashTotal){
-	if (cashTotal != 0){
+	if (cashTotal !== 0){
 		return true;
 	}else{
 		return false;
@@ -224,12 +232,5 @@ function runDiceGame(){
 
 
 
-/*
 
-Player Starts Out with $500 and if they win a bet (turn) then they get to keep their current
-dollar amount. If they loose the bet, then $100 would be subtracted from their current totals.
-
-After 5 turns (bets) if they have money they get to keep the result.
-
-*/
 
